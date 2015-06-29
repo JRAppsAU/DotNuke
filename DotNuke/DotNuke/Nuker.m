@@ -63,13 +63,13 @@
         if (err == 0) {
             CFTypeRef mediaEjectableKey = CFDictionaryGetValue(descDict,kDADiskDescriptionMediaEjectableKey);
             CFTypeRef deviceProtocolName = CFDictionaryGetValue(descDict,kDADiskDescriptionDeviceProtocolKey);
-//            CFTypeRef kindName = CFDictionaryGetValue(descDict, kDADiskDescriptionVolumeKindKey);
             
             if (mediaEjectableKey != NULL)
             {
-                BOOL op = CFEqual(mediaEjectableKey, CFSTR("0")) || CFEqual(deviceProtocolName, CFSTR("USB"));
-//                BOOL hfs = CFEqual(kindName, CFSTR("hfs"));
-                if (op) {
+                BOOL ejectable = CFEqual(mediaEjectableKey, kCFBooleanTrue) || CFEqual(deviceProtocolName, CFSTR("USB"));
+                
+                if (ejectable)
+                {
                     [result addObject:volURL];
                 }
             }
